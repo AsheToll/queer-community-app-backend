@@ -25,8 +25,11 @@ class EventsController < ApplicationController
     end
 
     def destroy
+        events = Event.all
         event = Event.find(params[:id])
-        event.destroy
+        if !!event
+            event.destroy
+        end
         render json: events.to_json(event_serializer)
     end
 
