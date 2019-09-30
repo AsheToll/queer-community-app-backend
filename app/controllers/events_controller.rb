@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
     # before_action :find_event, only: [:show, :edit, :update]
+    skip_before_action :authorized
 
     def index
         events = Event.all
@@ -51,6 +52,9 @@ class EventsController < ApplicationController
                     except: [:created_at, :updated_at]
                 },
                 :attendees => {
+                    except: [:created_at, :updated_at]
+                },
+                :categories => {
                     except: [:created_at, :updated_at]
                 }
             }
