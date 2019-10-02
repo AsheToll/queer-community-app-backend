@@ -8,8 +8,9 @@ class UsersController < ApplicationController
     end
 
     def show
-        token = request.headers["Authentication"].split(" ")[1]
-        render json: User.find(decode(token)["user_id"]), status: :accepted
+        token = request.headers["Authorization"].split(" ")[1]
+        user_id = JWT.decode(token, secret_key, true, algorithm: 'HS256')[0]["user_id"]
+        render json: User.find(user_id), status: :accepted
     end
 
     def profile

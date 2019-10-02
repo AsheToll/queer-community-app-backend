@@ -1,5 +1,6 @@
 class EventAttendeesController < ApplicationController
     # before_action :find_event_attendee, only: [:show, :edit, :update]
+    skip_before_action :authorized
 
     def index
         event_attendees = EventAttendee.all
@@ -42,6 +43,14 @@ class EventAttendeesController < ApplicationController
 
     def event_attendee_serializer
         {
+            include: {
+                :attendee => {
+                    except: [:created_at, :updated_at]
+                },
+                :event => {
+                    except: [:created_at, :updated_at]
+                }
+            },
             except: [:created_at, :updated_at]
         }
     end

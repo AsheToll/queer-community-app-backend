@@ -1,5 +1,6 @@
 class EventCreatorsController < ApplicationController
     # before_action :find_event_creator, only: [:show, :edit, :update]
+    skip_before_action :authorized
 
     def index
         event_creators = EventCreator.all
@@ -42,6 +43,14 @@ class EventCreatorsController < ApplicationController
 
     def event_creator_serializer
         {
+            include: {
+                :creator => {
+                    except: [:created_at, :updated_at]
+                },
+                :event => {
+                    except: [:created_at, :updated_at]
+                }
+            },
             except: [:created_at, :updated_at]
         }
     end
