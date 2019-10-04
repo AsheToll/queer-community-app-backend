@@ -43,7 +43,7 @@ class EventsController < ApplicationController
     # end
 
     def event_params
-        params.require(:event).permit(:name, :image, :location_id, :description, :categories)
+        params.require(:event).permit(:name, :image, :location_id, :description, :categories, :date, :time)
     end
 
     def category_params
@@ -60,7 +60,13 @@ class EventsController < ApplicationController
                 :attendees => {
                     except: [:created_at, :updated_at]
                 },
+                :creators => {
+                    except: [:created_at, :updated_at]
+                },
                 :categories => {
+                    except: [:created_at, :updated_at]
+                },
+                :addresses => {
                     except: [:created_at, :updated_at]
                 }
             }

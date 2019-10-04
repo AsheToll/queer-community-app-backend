@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :event_addresses
+  resources :addresses
   resources :category_events
   resources :categories
   resources :event_attendees

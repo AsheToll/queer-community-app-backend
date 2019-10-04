@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
     def create
         user = User.create!(user_params)
+        user.profile_pic.attach(params[:profile_pic])
         if user.valid?
             token = encode_token(user_id: user.id)
             render json: {user: UserSerializer.new(user), token: token}, status: :created
@@ -48,7 +49,7 @@ class UsersController < ApplicationController
     # end
 
     def user_params
-        params.require(:user).permit(:name, :username, :password)
+        params.require(:user).permit(:name, :username, :password, :profile_pic)
     end
 
     def user_serializer

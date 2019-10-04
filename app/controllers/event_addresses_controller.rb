@@ -1,0 +1,2 @@
+class EventAddressesController < ApplicationController
+end
